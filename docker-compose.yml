@@ -4,6 +4,8 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
+      args:
+        - WITH_XDEBUG=true
     restart: always
     networks:
       - laravel
@@ -13,7 +15,7 @@ services:
       - ./app:/app
     environment:
       - PHP_IDE_CONFIG=localhost
-      - XDEBUG_CONFIG='remote_host=10.254.254.254 remote_port=9001'
+      - 'PHP_EXTENSIONS=bcmath bz2 calendar exif gd gettext intl mysqli pcntl pdo_mysql soap sockets sysvmsg sysvsem sysvshm opcache zip redis xsl xdebug'
     links:
       - mysql
   mysql:
