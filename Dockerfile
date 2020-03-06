@@ -4,8 +4,10 @@ ARG WITH_XDEBUG
 
 RUN apt-get update && apt-get install -y \
         libpng-dev \
+        libicu-dev \
         cron \
-   && docker-php-ext-install zip
+   && docker-php-ext-install zip \
+   && docker-php-ext-install intl
 
 COPY ./app /app
 WORKDIR /app

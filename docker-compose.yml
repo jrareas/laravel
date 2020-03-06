@@ -11,10 +11,10 @@ services:
       - laravel
     ports:
       - "8090:80"
-    volumes:
-      - ./app:/app
+#    volumes:
+#      - ./app:/app
     environment:
-      - PHP_IDE_CONFIG=localhost
+      - PHP_IDE_CONFIG=serverName=laravel.local
       - 'PHP_EXTENSIONS=bcmath bz2 calendar exif gd gettext intl mysqli pcntl pdo_mysql soap sockets sysvmsg sysvsem sysvshm opcache zip redis xsl xdebug'
     links:
       - mysql
@@ -22,13 +22,13 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_DATABASE: 'laravel'
+      MYSQL_DATABASE: 'api_provider'
       # So you don't have to use root, but you can if you like
-      MYSQL_USER: 'laravel'
+      MYSQL_USER: 'api_provider'
       # You can use whatever password you like
       MYSQL_PASSWORD: 'laravel'
       # Password for root access
-      MYSQL_ROOT_PASSWORD: 'laravel'
+      MYSQL_ROOT_PASSWORD: 'n7ftRp8VCkm'
     networks:
       - laravel
     ports:
