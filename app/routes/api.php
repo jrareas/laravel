@@ -18,6 +18,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('checkApiKey')->get("/whois/{url}", 'Who@is');
-
-#Route::get("/whois/{url}", 'Who@is');
+/*
+Route::middleware('checkRapidApiKey')->group(function() {
+    Route::get("/whois/{url}", 'Who@is');
+});
+*/
+Route::middleware('client')->group(function() {
+    Route::get("/whois/{url}", 'Who@is');
+});
+Route::prefix('rapi')->middleware('checkRapidApiKey')->group(function() {
+    Route::get("/whois/{url}", 'Who@is');
+});
