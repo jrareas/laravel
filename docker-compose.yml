@@ -10,11 +10,13 @@ services:
     networks:
       - laravel
     ports:
-      - "8090:80"
-#    volumes:
-#      - ./app:/app
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./app:/app
     environment:
       - PHP_IDE_CONFIG=serverName=laravel.local
+      - RAPID_API_KEY=8bd20fd0-5f30-11ea-ab28-bb673dd95e9c
       - 'PHP_EXTENSIONS=bcmath bz2 calendar exif gd gettext intl mysqli pcntl pdo_mysql soap sockets sysvmsg sysvsem sysvshm opcache zip redis xsl xdebug'
     links:
       - mysql

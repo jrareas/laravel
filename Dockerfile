@@ -7,15 +7,20 @@ RUN apt-get update && apt-get install -y \
         libicu-dev \
         cron \
    && docker-php-ext-install zip \
-   && docker-php-ext-install intl
+   && docker-php-ext-install intl \
+   && docker-php-ext-install pdo_mysql
 
 COPY ./app /app
 WORKDIR /app
 
-COPY ./laravel.conf /etc/apache2/sites-available/
+RUN mkdir -p /etc/apache2/ssl/
+COPY ./apache2/ssl/* /etc/apache2/ssl/
+COPY ./apache2/sites-available/* /etc/apache2/sites-available/
 
 RUN composer install
+RUN a2enmod ssl
 RUN a2ensite laravel
+RUN a2ensite default-ssl
 
 RUN chmod -R 777 storage/
 COPY .env /app

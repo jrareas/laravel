@@ -9,3 +9,5 @@ Check other instructions to run in Dockerfile for your local machine. Otherwise 
 run `docker-compose up`
 The app will be avaiable on port 8090
 ## Build 
+
+## Api Authentication
