@@ -24,8 +24,13 @@ Route::middleware('checkRapidApiKey')->group(function() {
 });
 */
 Route::middleware('client')->group(function() {
-    Route::get("/whois/{url}", 'Who@is');
+    Route::middleware('logAccess')->group(function(){
+        Route::get("/whois/{url}", 'Who@is');
+    });
 });
 Route::prefix('rapi')->middleware('checkRapidApiKey')->group(function() {
-    Route::get("/whois/{url}", 'Who@is');
+    Route::middleware('logAccess')->group(function(){
+        Route::get("/whois/{url}", 'Who@is');
+    });
+
 });
