@@ -36,11 +36,29 @@ Vue.component(
     require('./components/passport/PersonalAccessTokens.vue').default
 );
 
+Vue.component(
+    'sidbar-menu',
+    require('./components/menu/Menu.vue').default
+);
+
+Vue.component(
+    'client-info',
+    require('./components/profile_info/ClientInfo.vue').default
+);
+
+Vue.component('personal-info',
+    require('./components/profile_info/PersonalInfo.vue').default
+);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+import Vue from 'vue'
+import VueSidebarMenu from 'vue-sidebar-menu'
+import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+Vue.use(VueSidebarMenu);
+
 
 const app = new Vue({
     el: '#app',

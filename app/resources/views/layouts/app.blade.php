@@ -18,6 +18,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+
+    <!--adsense -->
+    <script data-ad-client="ca-pub-3180815244916774" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 <body>
     <div id="app">
@@ -66,11 +70,13 @@
                                     </form>
                                 </div>
                             </li>
+                            <sidbar-menu></sidbar-menu>
                         @endguest
                     </ul>
                 </div>
             </div>
         </nav>
+
 
         <main class="py-4">
             @yield('content')

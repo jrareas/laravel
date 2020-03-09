@@ -10,6 +10,10 @@ help:	 ## Show this help.
 build:   ## build the image
 	docker build --no-cache \
 		-t $(IMAGE_NAME) .
+build-prod:   ## build the image
+	docker build --no-cache \
+		--build-arg PRODUCTION=true \
+		-t $(IMAGE_NAME) .
 push:    ## push the image to the docker registry
 	docker push $(IMAGE_NAME)
 

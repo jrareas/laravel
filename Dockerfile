@@ -1,6 +1,7 @@
 FROM jrareas/php-7.2-apache-composer
 
 ARG WITH_XDEBUG
+ARG PRODUCTION
 
 RUN apt-get update && apt-get install -y \
         libpng-dev \
@@ -42,5 +43,11 @@ RUN curl -sL https://deb.nodesource.com/setup_13.x | bash -
 RUN apt-get install -y nodejs
 RUN npm install && npm run dev
 
+RUN if [ $PRODUCTION = "true" ] ; then \
+        composer install --optimize-autoloader --no-dev; \
+        php artisan config:cache; \
+        php artisan route:cache; \
+        php artisan view:cache; \
+    fi ;
 
 CMD [ "sh", "-c", "cron && apache2-foreground" ]

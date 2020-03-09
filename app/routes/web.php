@@ -17,6 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::middleware("auth")->group(function() {
+    Route::get("info","ProfileInfo@index");
+});
+
 Auth::routes();
+
+Route::namespace('Auth')->put("/user/{id}","Me@update");
+
+Route::get('/user/{id}', "Me@index");
 
 Route::get('/home', 'HomeController@index')->name('home');

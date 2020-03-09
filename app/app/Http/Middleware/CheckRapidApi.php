@@ -15,8 +15,9 @@ class CheckRapidApi
      */
     public function handle($request, Closure $next)
     {
+        $RAPID_API_KEYS = explode(",", env("RAPID_API_KEY"));
         if ($_SERVER['SERVER_NAME'] != "laravel.local" &&
-            (!$request->header('X-RapidAPI-Proxy-Secret') || $request->header('X-RapidAPI-Proxy-Secret') != env("RAPID_API_KEY"))) {
+            (!$request->header('X-RapidAPI-Proxy-Secret') || !in_array($request->header('X-RapidAPI-Proxy-Secret'), $RAPID_API_KEYS))) {
             return response(['Bad Request. You need to use RapidApi to access this data'],400);
         }
 

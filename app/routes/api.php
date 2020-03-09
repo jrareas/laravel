@@ -18,19 +18,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-/*
-Route::middleware('checkRapidApiKey')->group(function() {
-    Route::get("/whois/{url}", 'Who@is');
+Route::middleware('auth:api')->group(function() {
+    Route::get('/user', function(Request $request) {
+        return $request->user();
+    });
 });
-*/
+
 Route::middleware('client')->group(function() {
     Route::middleware('logAccess')->group(function(){
         Route::get("/whois/{url}", 'Who@is');
+        Route::get("unitsofmeasure/{physical_quantity}", 'UnitsOfMeasure@index');
     });
 });
 Route::prefix('rapi')->middleware('checkRapidApiKey')->group(function() {
-    Route::middleware('logAccess')->group(function(){
-        Route::get("/whois/{url}", 'Who@is');
-    });
-
+    Route::get("/whois/{url}", 'Who@is');
+    Route::get("unitsofmeasure/{physical_quantity}", 'UnitsOfMeasure@index');
 });
