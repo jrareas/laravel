@@ -2,12 +2,31 @@
     .action-link {
         cursor: pointer;
     }
+    .loading {
+        background-image: url("../../../assets/Spinner-1s-28px.svg");
+        width:26px;
+        height:26px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
 </style>
 
 <template>
     <div>
         <div class="card card-default">
+            <div class="card-header">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>
+                        Client Details
+                    </span>
+                </div>
+            </div>
             <div class="card-body">
+                <p class="mb-0" v-if="clients.length === 0 && isLoading != true">
+                    You have no clients.
+                </p>
+                <div class="loading address" v-if="isLoading"></div>
                 <table class="table table-borderless mb-0" v-if="clients.length > 0">
                     <thead>
                     <tr>
@@ -102,13 +121,13 @@
 
 <script>
     export default {
+        props: ['clients'],
         /*
          * The component's data.
          */
         data() {
             return {
-                clients: [],
-
+                isLoading: false,
                 createForm: {
                     errors: [],
                     name: '',
@@ -142,7 +161,7 @@
              * Prepare the component.
              */
             prepareComponent() {
-                this.getClients();
+                //this.getClients();
 
                 $('#modal-create-client').on('shown.bs.modal', () => {
                     $('#create-client-name').focus();
@@ -160,6 +179,8 @@
                 axios.get('/oauth/clients')
                     .then(response => {
                         this.clients = response.data;
+                        this.isLoading = false;
+                        //$(".loading").hide();
                     });
             },
 
@@ -205,6 +226,7 @@
              * Persist the client to storage using the given form.
              */
             persistClient(method, uri, form, modal) {
+                this.isLoading = true;
                 form.errors = [];
 
                 axios[method](uri, form)

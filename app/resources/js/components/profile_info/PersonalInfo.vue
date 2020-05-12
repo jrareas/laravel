@@ -2,13 +2,33 @@
     .action-link {
         cursor: pointer;
     }
+    .loading {
+        background-image: url("../../../assets/Spinner-1s-28px.svg");
+        width:26px;
+        height:26px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
 </style>
+
 
 <template>
     <div>
         <div class="card card-default">
+            <div class="card-header">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>
+                        Personal Details
+                    </span>
+                </div>
+            </div>
             <div class="card-body">
-                <table class="table table-borderless mb-0">
+                <p class="mb-0" v-if="Object.keys(user).length === 0 && isLoading != true">
+                    You have not created any Address.
+                </p>
+                <div class="loading address" v-if="isLoading"></div>
+                <table class="table table-borderless mb-0" v-if="Object.keys(user).length > 0" >
                     <thead>
                     <tr >
                         <th>Name</th>
@@ -47,7 +67,6 @@
                         <h4 class="modal-title">
                             Edit User
                         </h4>
-
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
 
@@ -106,12 +125,13 @@
 </template>
 <script>
     export default {
-        props: ['authUser'],
+        props: ["authUser", "loadingData"],
         /*
          * The component's data.
          */
         data() {
             return {
+                isLoading: true,
                 user_id: this.authUser.id,
                 user: {},
 
@@ -166,7 +186,8 @@
                 axios.get('/user/' + this.authUser.id)
                     .then(response => {
                         this.user = response.data
-                        this.$nextTick()
+                        this.isLoading = false;
+                        //$(".loading").hide();
                     });
             },
 

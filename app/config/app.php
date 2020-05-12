@@ -1,5 +1,7 @@
 <?php
 
+use Intervention\Image\ImageServiceProvider;
+
 return [
 
     /*
@@ -166,6 +168,7 @@ return [
          * Package Service Providers...
          */
         jeremykenedy\LaravelRoles\RolesServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -175,6 +178,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\AddressServiceProvider::class,
+
 
     ],
 
@@ -227,7 +232,14 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
+
+    "canada_post_key" => env('CANADA_POST_KEY'),
+    "canada_post_address_complete_url" => env('CANADA_POST_ADDRESS_COMPLETE_URL'),
+    "smarty_streets_auth_id" => env('SMARTY_STREETS_AUTH_ID'),
+    "smarty_streets_auth_token" => env('SMARTY_STREETS_AUTH_TOKEN'),
+    "smarty_streets_url" => env('SMARTY_STREETS_URL'),
 
 ];

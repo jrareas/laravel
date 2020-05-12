@@ -1,8 +1,8 @@
 # Defaults settings (when building locally)
 SHELL := /bin/sh
 
-DOCKER_REGISTRY=us.gcr.io/minhamaedizia
-IMAGE_NAME=$(DOCKER_REGISTRY)/laravel_base
+DOCKER_REGISTRY=jrareas
+IMAGE_NAME=$(DOCKER_REGISTRY)/apitoolbox
 
 help:	 ## Show this help.
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fg
@@ -11,7 +11,7 @@ build:   ## build the image
 	docker build --no-cache \
 		-t $(IMAGE_NAME) .
 build-prod:   ## build the image
-	docker build --no-cache \
+	docker build \
 		--build-arg PRODUCTION=true \
 		-t $(IMAGE_NAME) .
 push:    ## push the image to the docker registry

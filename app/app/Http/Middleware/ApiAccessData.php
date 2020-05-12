@@ -6,6 +6,7 @@ use Closure;
 use App\RequestUri;
 use App\Request;
 use Lcobucci\JWT\Parser;
+use function PHPSTORM_META\type;
 
 class ApiAccessData
 {
@@ -28,7 +29,13 @@ class ApiAccessData
             $requestModel->request_uri_id = $this->getUriId($request->path());
             $requestModel->size =  mb_strlen($response->getContent(), '8bit');
             $requestModel->oauth_client_id = $this->getOauthClientId($request);
-            $requestModel->content = $response->getContent();
+            $content = $response->getContent();
+            if(is_object($content)) {
+                $requestModel->content = \serialize($content);
+            } else {
+                $requestModel->content = $content;
+            }
+
             $requestModel->response_time = microtime(true) - LARAVEL_START;
             $requestModel->save();
         }

@@ -32,6 +32,6 @@ class AddBillingAddressTables extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('addresses');
     }
 }

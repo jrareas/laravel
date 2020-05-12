@@ -26,11 +26,15 @@ Route::middleware('auth:api')->group(function() {
 
 Route::middleware('client')->group(function() {
     Route::middleware('logAccess')->group(function(){
-        Route::get("/whois/{url}", 'Who@is');
-        Route::get("unitsofmeasure/{physical_quantity}", 'UnitsOfMeasure@index');
+        Route::middleware('subscribed')->group(function() {
+            Route::get("/whois/{url}", 'Who@is')->name('check_domain_availability');
+            Route::get("unitsofmeasure/{physical_quantity}", 'UnitsOfMeasure@index')->name('units_of_measure');
+            Route::get('addressvalidation/validate_address','AddressValidationController@validateAddress');
+        });
     });
 });
 Route::prefix('rapi')->middleware('checkRapidApiKey')->group(function() {
     Route::get("/whois/{url}", 'Who@is');
-    Route::get("unitsofmeasure/{physical_quantity}", 'UnitsOfMeasure@index');
+    Route::get("/unitsofmeasure/{physical_quantity}", 'UnitsOfMeasure@index');
+    Route::get('addressvalidation/validate_address','AddressValidationController@validateAddress');
 });

@@ -11,6 +11,7 @@ class CountriesSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('countries')->truncate();
         DB::table('countries')->insert(['country_name' => "Afghanistan", 'country_iso2' => 'AF']);
         DB::table('countries')->insert(['country_name' => "Ã…land Islands", 'country_iso2' => 'AX']);
         DB::table('countries')->insert(['country_name' => "Albania", 'country_iso2' => 'AL']);

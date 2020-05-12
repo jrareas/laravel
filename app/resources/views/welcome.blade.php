@@ -4,12 +4,17 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>{{ config('app.name', 'Api tool Box') }}</title>
 
+        <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}" defer></script>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
         <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <style>
             html, body {
                 background-color: #fff;
@@ -42,6 +47,7 @@
 
             .content {
                 text-align: center;
+                width: 100%;
             }
 
             .title {
@@ -57,35 +63,39 @@
                 text-decoration: none;
                 text-transform: uppercase;
             }
-
             .m-b-md {
                 margin-bottom: 30px;
+            }
+            .banner{
+                min-height: 600px;
+                background-color: azure;
+            }
+            .menu-header{
+                max-height: 60px;
             }
         </style>
         <script data-ad-client="ca-pub-3180815244916774" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+        <div class="flex-center full-height menu-header" sticky-container>
+            <div v-sticky sticky-side="top" sticky-offset="{top: -1}" sticky-side="top">
+                @if (Route::has('login'))
+                    <div class="top-right links">
+                        <a href="{{ url('/documentation/index') }}">Documentation</a>
+                        @auth
+                            <a href="{{ url('/info') }}">Dashboard</a>
+                        @else
+                            <a href="{{ route('login') }}" class="btn btn-primary" role="button">Login</a>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="btn btn-outline-primary" role="button">Register</a>
+                            @endif
+                        @endauth
+                    </div>
+                @endif
+            </div>
             <div class="content">
-                <div class="title m-b-md" >
-                    API
-                </div>
-
-                <div class="links">
+                <div class="banner">
                 </div>
             </div>
         </div>
